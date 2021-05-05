@@ -1,11 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import PVEScene from './scenes/PVEGame'
 
 
 const View: React.FC = () => {
     
     return (
-        <div id="WAR-game"></div>
+        <PVEScene></PVEScene>
     )
 }
 
