@@ -1,7 +1,8 @@
+import { MeshBuilder } from '@babylonjs/core';
 import SceneComponent from 'babylonjs-hook';
 
 const onSceneReady = (scene) => {
-
+  
 };
 
 const onRender = (scene) => {

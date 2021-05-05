@@ -1,12 +1,12 @@
 import React from 'react'
 
-import PVEScene from './scenes/PVEGame'
+import Match from './scenes/Match'
 
 
 const View: React.FC = () => {
     
     return (
-        <PVEScene></PVEScene>
+        <Match></Match>
     )
 }
 
