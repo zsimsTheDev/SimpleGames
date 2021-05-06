@@ -4,7 +4,6 @@ import Match from './scenes/Match'
 
 
 const View: React.FC = () => {
-    
     return (
         <Match></Match>
     )

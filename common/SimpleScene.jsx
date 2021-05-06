@@ -9,7 +9,7 @@ const onRender = (scene) => {
 };
 
 export default () => (
-  <div>
-    <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} id="my-canvas" />
-  </div>
+    <div>
+        <SceneComponent antialias onSceneReady={onSceneReady} onRender={onRender} id="my-canvas" />
+    </div>
 );
