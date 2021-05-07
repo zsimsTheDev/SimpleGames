@@ -1,5 +1,12 @@
-class Player{
+import Hand from './Hand'
 
+class Player{
+    PlayerHand: Hand
+    
+    constructor(){
+        console.log('I am constructing a Player')
+        this.PlayerHand = new Hand()
+    }
 
 }
 
