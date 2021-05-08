@@ -1,11 +1,15 @@
 import Hand from './Hand'
+import Card from './Card'
 
 class Player{
-    PlayerHand: Hand
+    private _PlayerHand!: Hand
     
     constructor(){
-        console.log('I am constructing a Player')
-        this.PlayerHand = new Hand()
+        this._PlayerHand = new Hand()
+    }
+
+    GiveCard(Card: Card){
+        this._PlayerHand.AddCardToHand(Card)
     }
 
 }

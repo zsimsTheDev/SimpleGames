@@ -1,6 +1,13 @@
+import Card from './Card'
+
 class Hand{
+    private _Cards: Card[] = [];
+
     constructor(){
-        console.log('I am constructing a Hand')
+    }
+
+    AddCardToHand(Card: Card){
+        this._Cards.push(Card)
     }
 }
 

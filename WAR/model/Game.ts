@@ -21,14 +21,12 @@ class Game{
     private _CurrentRound: number = 0
     
     constructor(){
-        console.log('I am constructing a game')
         this._Deck = new Deck()
         this._Player1 = new Player()
         this._Player2 = new Player()
     }
 
     private NextGameState(){
-        console.log('I am changing the game state')
         switch (this._GameState){
             case EGameState.Setup:
                 this._GameState = EGameState.Deal
@@ -51,7 +49,7 @@ class Game{
     }
 
     private DealPlayers(){
-        console.log('I am dealing the players in')
+        this._Deck.DealCards(this._Player1, this._Player2)
         this.NextGameState()
     }
 

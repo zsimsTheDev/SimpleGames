@@ -1,6 +1,16 @@
 class Card{
-    constructor(){
-        console.log('I am constructing a Card')
+    private _Name!: string;
+    private _Suit!: string;
+    private _Value!: number;
+
+    PrintString!: string;
+
+    constructor(CardName: string, CardSuit: string, CardValue: number){
+        this._Name = CardName
+        this._Suit = CardSuit
+        this._Value = CardValue
+
+        this.PrintString = this._Name + " of " + this._Suit + ". Value of " + this._Value
     }
 
 }
