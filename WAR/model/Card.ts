@@ -10,9 +10,12 @@ class Card{
         this._Suit = CardSuit
         this._Value = CardValue
 
-        this.PrintString = this._Name + " of " + this._Suit + ". Value of " + this._Value
+        this.PrintString = this._Name + " of " + this._Suit + "."
     }
 
+    CompareToCard(OtherCard: Card){
+        return this._Value - OtherCard._Value
+    }
 }
 
 export default Card

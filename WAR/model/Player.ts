@@ -12,6 +12,14 @@ class Player{
         this._PlayerHand.AddCardToHand(Card)
     }
 
+    DrawCard(): Card { 
+        return this._PlayerHand.DrawCard()
+    }
+
+    HasCardsLeft(): boolean {
+        return (this._PlayerHand.CardCount() > 0)
+    }
+
 }
 
 export default Player

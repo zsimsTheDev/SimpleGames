@@ -1,5 +1,7 @@
 import Player from './Player'
 import Deck from './Deck'
+import BattleSystem from './Battle'
+import Card from './Card'
 
 enum EGameState{
     Setup = "Setup",
@@ -17,7 +19,7 @@ class Game{
     private _GameState: EGameState = EGameState.Setup
 
     private _PlayTimer!: NodeJS.Timeout
-    MaxRounds: number = 5
+    MaxRounds: number = 300
     private _CurrentRound: number = 0
     
     constructor(){
@@ -54,13 +56,18 @@ class Game{
     }
 
     private NextRound(){
-        console.log('I am running a new round. This is round ' + (this._CurrentRound+1))
         if(this._CurrentRound >= this.MaxRounds){
+            this.NextGameState()
+        }
+        else if(!this._Player1.HasCardsLeft() || !this._Player2.HasCardsLeft()){
             this.NextGameState()
         }
         else{
             this._CurrentRound += 1
         }
+
+        //Draw Cards and battle
+        BattleSystem( this._Player1 , this._Player2)
     }
 
     private MatchResults(){
@@ -69,9 +76,9 @@ class Game{
     }
 
     private ResetPlayState(){
+        clearInterval(this._PlayTimer)
         console.log('I am resetting the play state')
         this._CurrentRound = 0;
-        clearInterval(this._PlayTimer)
     }
 
     private ResetMatchState(){
