@@ -1,6 +1,4 @@
 import Player from './Player'
-import Card from './Card'
-import { Console } from 'node:console'
 
 const CompareCards = (PlayerOne: Player, PlayerTwo: Player) => {
     let PlayerOneCard = PlayerOne.DrawCard()

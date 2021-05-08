@@ -3,6 +3,7 @@ import Card from './Card'
 
 class Player{
     private _PlayerHand!: Hand
+    private _PlayerScore: number = 0
     
     constructor(){
         this._PlayerHand = new Hand()
@@ -10,9 +11,11 @@ class Player{
 
     GiveCard(Card: Card){
         this._PlayerHand.AddCardToHand(Card)
+        this._PlayerScore++
     }
 
     DrawCard(): Card { 
+        this._PlayerScore--
         return this._PlayerHand.DrawCard()
     }
 
@@ -20,6 +23,9 @@ class Player{
         return (this._PlayerHand.CardCount() > 0)
     }
 
+    GetPlayerScore(): number {
+        return this._PlayerScore
+    }
 }
 
 export default Player

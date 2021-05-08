@@ -3,9 +3,6 @@ import Card from './Card'
 class Hand{
     private _Cards: Card[] = []
 
-    constructor(){
-    }
-
     DrawCard(): Card{
         if(this._Cards.length <= 0)
             return new Card("Invalid", "Invalid", 0)

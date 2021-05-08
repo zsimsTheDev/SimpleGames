@@ -1,7 +1,6 @@
 import Player from './Player'
 import Deck from './Deck'
 import BattleSystem from './Battle'
-import Card from './Card'
 
 enum EGameState{
     Setup = "Setup",
@@ -13,9 +12,7 @@ enum EGameState{
 class Game{
     private _Player1: Player
     private _Player2: Player
-
     private _Deck: Deck
-
     private _GameState: EGameState = EGameState.Setup
 
     private _PlayTimer!: NodeJS.Timeout
@@ -24,6 +21,41 @@ class Game{
     
     constructor(){
         this._Deck = new Deck()
+        this._Player1 = new Player()
+        this._Player2 = new Player()
+    }
+
+    private DealPlayers(){
+        this._Deck.DealCards(this._Player1, this._Player2)
+        this.NextGameState()
+    }
+    private NextRound(){
+        if(this._CurrentRound >= this.MaxRounds){
+            this.NextGameState()
+        }
+        else if(!this._Player1.HasCardsLeft() || !this._Player2.HasCardsLeft()){
+            this.NextGameState()
+        }
+        else{
+            this._CurrentRound += 1
+        }
+
+        //Draw Cards and battle
+        BattleSystem( this._Player1 , this._Player2)
+
+        console.log('The current score is:\nPlayer 1: ' + this._Player1.GetPlayerScore() + '\nPlayer 2: ' + this._Player2.GetPlayerScore() + '\n')
+    }
+    private MatchResults(){
+        console.log('I am announcing the match results')
+        //this.NextGameState()
+    }
+
+    private ResetPlayState(){
+        clearInterval(this._PlayTimer)
+        this._CurrentRound = 0
+        this._Deck = new Deck()
+    }
+    private ResetMatchState(){
         this._Player1 = new Player()
         this._Player2 = new Player()
     }
@@ -49,42 +81,6 @@ class Game{
         }
         this.GameLoop();
     }
-
-    private DealPlayers(){
-        this._Deck.DealCards(this._Player1, this._Player2)
-        this.NextGameState()
-    }
-
-    private NextRound(){
-        if(this._CurrentRound >= this.MaxRounds){
-            this.NextGameState()
-        }
-        else if(!this._Player1.HasCardsLeft() || !this._Player2.HasCardsLeft()){
-            this.NextGameState()
-        }
-        else{
-            this._CurrentRound += 1
-        }
-
-        //Draw Cards and battle
-        BattleSystem( this._Player1 , this._Player2)
-    }
-
-    private MatchResults(){
-        console.log('I am announcing the match results')
-        //this.NextGameState()
-    }
-
-    private ResetPlayState(){
-        clearInterval(this._PlayTimer)
-        console.log('I am resetting the play state')
-        this._CurrentRound = 0;
-    }
-
-    private ResetMatchState(){
-        console.log('I am ressting the match state')
-    }
-
     GameLoop(){
         switch (this._GameState){
             case EGameState.Setup:
@@ -102,6 +98,11 @@ class Game{
             default:
                 this._GameState = EGameState.Setup
         }
+    }
+
+    Dispose(){
+        this.ResetPlayState()
+        this.ResetMatchState()
     }
 }
 
