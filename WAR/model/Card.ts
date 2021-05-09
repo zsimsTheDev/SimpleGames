@@ -1,16 +1,16 @@
 class Card{
-    private _Name!: string;
-    private _Suit!: string;
-    private _Value!: number;
+    private _Name!: string
+    private _Suit!: string
+    private _Value!: number
 
-    PrintString!: string;
+    PrintString!: string
 
     constructor(CardName: string, CardSuit: string, CardValue: number){
         this._Name = CardName
         this._Suit = CardSuit
         this._Value = CardValue
 
-        this.PrintString = this._Name + " of " + this._Suit + "."
+        this.PrintString = this._Name + " of " + this._Suit
     }
 
     CompareToCard(OtherCard: Card){

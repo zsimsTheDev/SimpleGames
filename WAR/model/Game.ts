@@ -16,7 +16,7 @@ class Game{
     private _GameState: EGameState = EGameState.Setup
 
     private _PlayTimer!: NodeJS.Timeout
-    MaxRounds: number = 300
+    MaxRounds: number = 3000
     private _CurrentRound: number = 0
     
     constructor(){
@@ -30,11 +30,14 @@ class Game{
         this.NextGameState()
     }
     private NextRound(){
+        clearInterval(this._PlayTimer)
         if(this._CurrentRound >= this.MaxRounds){
             this.NextGameState()
+            return
         }
         else if(!this._Player1.HasCardsLeft() || !this._Player2.HasCardsLeft()){
             this.NextGameState()
+            return
         }
         else{
             this._CurrentRound += 1
@@ -43,7 +46,8 @@ class Game{
         //Draw Cards and battle
         BattleSystem( this._Player1 , this._Player2)
 
-        console.log('The current score is:\nPlayer 1: ' + this._Player1.GetPlayerScore() + '\nPlayer 2: ' + this._Player2.GetPlayerScore() + '\n')
+        console.log('The score for round ' + this._CurrentRound + ' is:\nPlayer 1: ' + this._Player1.GetPlayerScore() + '\nPlayer 2: ' + this._Player2.GetPlayerScore() + '\n')
+        this._PlayTimer = setInterval(this.NextRound.bind(this), 100)
     }
     private MatchResults(){
         console.log('I am announcing the match results')
@@ -51,7 +55,6 @@ class Game{
     }
 
     private ResetPlayState(){
-        clearInterval(this._PlayTimer)
         this._CurrentRound = 0
         this._Deck = new Deck()
     }
@@ -90,7 +93,7 @@ class Game{
                 this.DealPlayers()
                 break
             case EGameState.Play:
-                this._PlayTimer = setInterval(this.NextRound.bind(this), 1000)
+                this._PlayTimer = setInterval(this.NextRound.bind(this), 100)
                 break
             case EGameState.End:
                 this.MatchResults()
@@ -101,6 +104,7 @@ class Game{
     }
 
     Dispose(){
+        clearInterval(this._PlayTimer)
         this.ResetPlayState()
         this.ResetMatchState()
     }

@@ -23,6 +23,10 @@ class Player{
         return (this._PlayerHand.CardCount() > 0)
     }
 
+    CountCardsLeft(): number {
+        return this._PlayerHand.CardCount()
+    }
+
     GetPlayerScore(): number {
         return this._PlayerScore
     }
