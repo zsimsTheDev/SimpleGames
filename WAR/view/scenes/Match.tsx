@@ -1,12 +1,12 @@
 import SceneComponent from 'babylonjs-hook'
 import { Scene, HemisphericLight,  ArcRotateCamera, Vector3 } from '@babylonjs/core'
 import { useEffect } from "react";
-//import { AdvancedDynamicTexture} from "babylonjs-gui"
+import { AdvancedDynamicTexture} from "babylonjs-gui"
 
 import Gamestate from '../../model/Game'
 
 let CurrentGameState: Gamestate
-//let GameUI: AdvancedDynamicTexture
+let GameUI: AdvancedDynamicTexture
 let Canvas
 
 const onSceneReady = (scene: Scene) => {
@@ -14,7 +14,7 @@ const onSceneReady = (scene: Scene) => {
     
     CurrentGameState = new Gamestate()
     Canvas = scene.getEngine().getRenderingCanvas()
-    //GameUI = AdvancedDynamicTexture.CreateFullscreenUI("UI", true, scene)
+    GameUI = AdvancedDynamicTexture.CreateFullscreenUI("UI", true, scene)
 
     //Camera and light
     new ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 4, 60,  Vector3.Zero(), scene).attachControl(Canvas, true)

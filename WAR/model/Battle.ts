@@ -18,9 +18,6 @@ const CompareCards = (PlayerOne: Player, PlayerTwo: Player) => {
         PlayerTwo.GiveCard(PlayerTwoCard)
     }
     else{
-        //If the cards are matched then it goes into war mode
-        //This can chain perpetually until someone is out of cards
-        //If you don't have enough cards to battle then you lose the war and thus the game
         let Player1WARCards: Card[] = []
         let Player2WARCards: Card[] = []
         while(CompareResult === 0){

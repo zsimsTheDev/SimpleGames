@@ -26,8 +26,10 @@ class Game{
     }
 
     private DealPlayers(){
+        this._Deck.OnDeckDealt.subscribe(() =>{
+            this.NextGameState()
+        })
         this._Deck.DealCards(this._Player1, this._Player2)
-        this.NextGameState()
     }
     private NextRound(){
         clearInterval(this._PlayTimer)
@@ -51,18 +53,39 @@ class Game{
     }
     private MatchResults(){
         console.log('I am announcing the match results')
-        //this.NextGameState()
+        if(!this._Player1.HasCardsLeft()){
+            //Player 2 wins
+        }
+        else if(!this._Player2.HasCardsLeft()){
+            //Player 1 wins
+        }
+        else{
+            //Compare score and determine winner
+            let Player1Score: number = this._Player1.GetPlayerScore()
+            let Player2Score: number = this._Player2.GetPlayerScore()
+            if(Player1Score < Player2Score){
+                console.log('Player 2 wins with a score of ' + Player2Score)
+            }
+            else if(Player1Score > Player2Score){
+                console.log('Player 1 wins with a score of ' + Player1Score)
+            }
+            else{
+                console.log('The match ends in a tie with a score of ' + Player1Score)
+            }
+            console.log('')
+        }
+        this.NextGameState()
     }
-
     private ResetPlayState(){
         this._CurrentRound = 0
+        clearInterval(this._PlayTimer)
         this._Deck = new Deck()
     }
     private ResetMatchState(){
+        this.ResetPlayState()
         this._Player1 = new Player()
         this._Player2 = new Player()
     }
-
     private NextGameState(){
         switch (this._GameState){
             case EGameState.Setup:
@@ -102,10 +125,7 @@ class Game{
                 this._GameState = EGameState.Setup
         }
     }
-
     Dispose(){
-        clearInterval(this._PlayTimer)
-        this.ResetPlayState()
         this.ResetMatchState()
     }
 }
