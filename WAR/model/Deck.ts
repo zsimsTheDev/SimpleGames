@@ -3,7 +3,6 @@ import Player from './Player'
 import DeckData from './DeckData.json'
 import { SignalDispatcher } from "strongly-typed-events"
 
-
 class Deck{
     private _Cards: Card[] = []
     private _OnDeckDealt = new SignalDispatcher()
